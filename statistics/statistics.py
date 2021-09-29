@@ -4,7 +4,7 @@ import numpy as np
 
 
 def main():
-    df = pd.read_csv('data.csv')
+    df = pd.read_csv('statistics/data.csv')
     Rs = df.loc[:, 'Resistance']
 
     mean = np.mean(Rs)
