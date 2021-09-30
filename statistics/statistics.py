@@ -11,7 +11,8 @@ def main():
     sigma = np.std(Rs)
     print(len(Rs))
     print(f'sigma: {len(list(filter(lambda R: abs(R - mean) < sigma, Rs)))}')
-    print(f'2sigma: {len(list(filter(lambda R: abs(R - mean) < 2*sigma, Rs)))}')
+    print(
+        f'2sigma: {len(list(filter(lambda R: abs(R - mean) < 2*sigma, Rs)))}')
 
     # plot(Rs, 10)
     # plot(Rs, 20)
@@ -73,5 +74,6 @@ def export_split(Rs, m):
         'W': np.round(n/len(Rs) * 100, 1),
     })
     df.to_csv(f'probs_{m}bins.csv')
+
 
 main()
