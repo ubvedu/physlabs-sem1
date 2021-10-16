@@ -8,14 +8,7 @@ num_lengthes = 4
 
 def main():
 
-    I = np.empty((num_lengthes, num_schemes))
-    U = np.empty((num_lengthes, num_schemes))
-    l = np.empty(num_lengthes)
-    for j in range(num_schemes):
-        df = read_from_scheme(j)
-        I[:, j] = df.loc[:, 'I']
-        U[:, j] = df.loc[:, 'U']
-        l[:] = df.loc[:, 'l']
+    I, U, l = parse_schemes()
 
     def plot_l_lines(ax):
         colors = ['#6929c4', '#012749', '#009d9a', '#ee538b']
@@ -42,6 +35,11 @@ def main():
     plot_l_lines(ax)
     fig.savefig('ivc+.png')
 
+    Rs = [U[i] / I[i] for i in range(num_lengthes)]
+
+    fig, ax = plt.subplots()
+    ax.set_title('Сравнение методов измерения')
+
 
 def new_plot():
     fig, ax = plt.subplots()
@@ -55,6 +53,18 @@ def new_plot():
 def read_from_scheme(i):
     df = pd.read_csv(f'schemes/{i + 1}.csv')
     return df
+
+
+def parse_schemes():
+    I = np.empty((num_lengthes, num_schemes))
+    U = np.empty((num_lengthes, num_schemes))
+    l = np.empty(num_lengthes)
+    for j in range(num_schemes):
+        df = read_from_scheme(j)
+        I[:, j] = df.loc[:, 'I']
+        U[:, j] = df.loc[:, 'U']
+        l[:] = df.loc[:, 'l']
+    return I, U, l
 
 
 main()
